@@ -46,28 +46,27 @@ public class StationDBContext extends DBContext {
     }
 
     public Station get(int id) {
+        Station station = new Station();
         try {
             String sql = "SELECT [station_id]\n"
                     + "      ,[station_name]\n"
                     + "      ,[station_phone]\n"
-                    + "      ,[station_emai]\n"
+                    + "      ,[station_email]\n"
                     + "  FROM [Station]\n"
                     + "  WHERE station_id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
-            Station station = new Station();
             while (rs.next()) {
                 station.setStation_id(rs.getInt("station_id"));
                 station.setStation_name(rs.getString("station_name"));
                 station.setStation_phone(rs.getString("station_phone"));
-                station.setStation_email(rs.getString("station_emai"));
-                return station;
+                station.setStation_email(rs.getString("station_email"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(StationDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return station;
     }
 
 }

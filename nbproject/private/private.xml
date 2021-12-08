@@ -3,10 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Quang/Desktop/BookingTrain/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Quang/Desktop/BookingTrain/src/java/controller/auth/LoginController.java</file>
-            <file>file:/C:/Users/Quang/Desktop/BookingTrain/web/view/auth/login.jsp</file>
-            <file>file:/C:/Users/Quang/Desktop/BookingTrain/src/java/dal/AccountDBContext.java</file>
+            <file>file:/C:/Users/Quang/Desktop/BookingTrain/src/java/controller/home/HomeController.java</file>
         </group>
     </open-files>
 </project-private>

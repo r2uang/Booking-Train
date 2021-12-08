@@ -34,18 +34,7 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            JourneyDBContext jdbc = new JourneyDBContext();
-            ArrayList<Journey> journeys = jdbc.listJourneys();
-            request.setAttribute("journeys", journeys);
 
-            StationDBContext sdbc = new StationDBContext();
-            ArrayList<Station> stations = sdbc.list();
-            request.setAttribute("stations", stations);
-
-            request.getRequestDispatcher("/view/home.jsp").forward(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,7 +49,11 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        JourneyDBContext jdbc = new JourneyDBContext();
+        ArrayList<Journey> journeys = jdbc.list();
+        request.setAttribute("journeys", journeys);
+        request.getRequestDispatcher("/view/home.jsp").forward(request, response);
     }
 
     /**

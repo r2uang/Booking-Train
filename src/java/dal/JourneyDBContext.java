@@ -22,7 +22,7 @@ import model.train.Train;
  */
 public class JourneyDBContext extends DBContext {
 
-    public ArrayList<Journey> listJourneys() {
+    public ArrayList<Journey> list() {
         ArrayList<Journey> journeys = new ArrayList<>();
         try {
             String sql = "SELECT * FROM [dbo].[Journeys] j INNER JOIN Train t ON j.train_id = t.train_id\n"
@@ -34,7 +34,7 @@ public class JourneyDBContext extends DBContext {
                 Journey journey = new Journey();
                 journey.setJourneys_id(rs.getInt("journey_id"));
                 journey.setJourneys_from_station(rs.getInt("journey_from_station"));
-                journey.setJourneys_to_station(rs.getInt("journey__to_station"));
+                journey.setJourneys_to_station(rs.getInt("journey_to_station"));
                 journey.setTrain_id(rs.getInt("train_id"));
                 journey.setJourney_date(rs.getDate("journey_date"));
                 journey.setJourney_time(rs.getString("journey_time"));

@@ -4,6 +4,7 @@
     Author     : Quang
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="dal.StationDBContext"%>
 <%@page import="model.station.Station"%>
 <%@page import="java.util.ArrayList"%>
@@ -17,11 +18,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <link href="style/style.css" rel="stylesheet" type="text/css"/>
-        <% ArrayList<Journey> journeys = (ArrayList<Journey>) request.getAttribute("journeys"); %>
-    </head>
+        <link href="../style/style.css" rel="stylesheet" type="text/css"/>
+        <% ArrayList<Journey> journeys = (ArrayList<Journey>) request.getAttribute("journeys");%>
+    </head>    
     <body>
-        <div style="background: url(img/TauCatLinhHaDong.jpg)" class="page-holder bg-cover">
+        <div style="background: url(../img/TauCatLinhHaDong.jpg)" class="page-holder bg-cover">
             <header class="p-3 bg-dark text-white">
                 <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -57,7 +58,7 @@
                         Station stationto = new StationDBContext().get(j.getJourneys_to_station());
                     %>
                     <tr>
-                        <td><%=stationfrom.getStation_name() %></td>
+                        <td><%=stationfrom.getStation_name()%></td>
                         <td><%=stationto.getStation_name()%></td>
                         <td><%=j.getJourney_date()%></td>
                         <td><%=j.getJourney_time()%></td>
@@ -66,4 +67,5 @@
                     <%}%>
                 </tbody>
             </table>
+    </body>
 </html>
