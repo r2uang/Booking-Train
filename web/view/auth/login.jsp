@@ -43,8 +43,8 @@
                     </div>
                     <!-- Login Form -->
                     <form>
-                        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Tên Đăng Nhập">
-                        <input type="text" id="password" class="fadeIn third" name="login" placeholder="Mật Khẩu">
+                        <input type="text" id="login" class="fadeIn second" name="username" placeholder="Tên Đăng Nhập">
+                        <input type="text" id="password" class="fadeIn third" name="password" placeholder="Mật Khẩu">
                         <input type="submit" class="fadeIn fourth" value="Đăng nhập">
                     </form>
 
