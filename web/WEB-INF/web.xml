@@ -8,6 +8,22 @@
         <servlet-name>HomeController</servlet-name>
         <servlet-class>controller.home.HomeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookingController</servlet-name>
+        <servlet-class>controller.booking.BookingController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.auth.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>JourneysController</servlet-name>
+        <servlet-class>controller.journey.JourneysController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>controller.account.RegisterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/account/login</url-pattern>
@@ -15,6 +31,22 @@
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingController</servlet-name>
+        <url-pattern>/book/booking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/account/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JourneysController</servlet-name>
+        <url-pattern>/book/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/account/register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
