@@ -34,7 +34,7 @@
             <td><%=stationto.getStation_name()%></td>
             <td><%=j.getJourney_date()%></td>
             <td><%=j.getJourney_time()%></td>
-            <td><button type="button" class="btn btn-dark">Đặt vé</button></td>
+            <td><a type="button" class="btn btn-dark" href="${pageContext.request.contextPath}/journeys/book?id=<%=j.getJourneys_id()%> "/>Đặt vé</a></td>
         </tr>
         <%}%>
     </tbody>

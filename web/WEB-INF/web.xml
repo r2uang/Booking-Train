@@ -24,6 +24,18 @@
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>controller.account.RegisterController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TrainController</servlet-name>
+        <servlet-class>controller.train.TrainController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>JourneysBookingController</servlet-name>
+        <servlet-class>controller.journey.JourneysBookingController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TrainSeatController</servlet-name>
+        <servlet-class>controller.train.TrainSeatController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/account/login</url-pattern>
@@ -42,11 +54,23 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>JourneysController</servlet-name>
-        <url-pattern>/book/list</url-pattern>
+        <url-pattern>/journeys/list</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/account/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrainController</servlet-name>
+        <url-pattern>/train/book</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JourneysBookingController</servlet-name>
+        <url-pattern>/journeys/book</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrainSeatController</servlet-name>
+        <url-pattern>/train/seat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

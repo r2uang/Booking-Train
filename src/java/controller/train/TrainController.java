@@ -3,23 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.journey;
+package controller.train;
 
-import dal.JourneyDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.train.Journey;
 
 /**
  *
  * @author Quang
  */
-public class JourneysController extends HttpServlet {
+public class TrainController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +35,10 @@ public class JourneysController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet JourneysController</title>");
+            out.println("<title>Servlet TrainController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet JourneysController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TrainController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,11 +56,7 @@ public class JourneysController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().setAttribute("isBooking", true);
-        JourneyDBContext jdbc = new JourneyDBContext();
-        ArrayList<Journey> journeys = jdbc.list();
-        request.setAttribute("journeys", journeys);
-        request.getRequestDispatcher("../view/journeys/list.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

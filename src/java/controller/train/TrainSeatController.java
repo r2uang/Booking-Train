@@ -3,23 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.journey;
+package controller.train;
 
-import dal.JourneyDBContext;
+import controller.home.HomeController;
+import dal.TicketDBContext;
+import dal.TrainDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.train.Journey;
+import model.Price;
+import model.train.Train;
 
 /**
  *
  * @author Quang
  */
-public class JourneysController extends HttpServlet {
+public class TrainSeatController extends HomeController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,6 +32,7 @@ public class JourneysController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -38,10 +41,10 @@ public class JourneysController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet JourneysController</title>");
+            out.println("<title>Servlet TrainSeatController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet JourneysController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TrainSeatController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,11 +62,20 @@ public class JourneysController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().setAttribute("isBooking", true);
-        JourneyDBContext jdbc = new JourneyDBContext();
-        ArrayList<Journey> journeys = jdbc.list();
-        request.setAttribute("journeys", journeys);
-        request.getRequestDispatcher("../view/journeys/list.jsp").forward(request, response);
+       Boolean isBooking = (Boolean) request.getSession().getAttribute("isBooking");
+       int journeysId = Integer.parseInt(request.getParameter("id"));
+       
+        TrainDBContext trainDBContext = new TrainDBContext();
+        int [][] seats = trainDBContext.getSeatBooked(journeysId);
+        
+        TicketDBContext ticketDBContext = new TicketDBContext();
+        Price price = ticketDBContext.getPrice();
+        
+        request.setAttribute("seats", seats);
+        request.setAttribute("price", price);
+        
+        request.setAttribute("pageInclude", "/view/cinema/rowseat.jsp");
+        request.getRequestDispatcher("../view/home.jsp").forward(request, response);
     }
 
     /**
