@@ -12,6 +12,12 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<script>
+    function booking(id, tid)
+    {
+        window.location.href = "${pageContext.request.contextPath}/train/seat?id=" + id + "&?tid=" + tid;
+    }
+</script>
 <% ArrayList<Journey> journeys = (ArrayList<Journey>) request.getAttribute("journeys"); %>
 <table class="table">
     <thead class="thead-dark">
@@ -34,8 +40,9 @@
             <td><%=stationto.getStation_name()%></td>
             <td><%=j.getJourney_date()%></td>
             <td><%=j.getJourney_time()%></td>
-            <td><a type="button" class="btn btn-dark" href="${pageContext.request.contextPath}/journeys/book?id=<%=j.getJourneys_id()%> "/>Đặt vé</a></td>
-        </tr>
-        <%}%>
+            <td><input type="button" class="btn btn-dark" value="Đặt Vé" name="id" onclick="booking(<%=j.getJourneys_id()%>,<%=j.getTrain_id()%>)"/></td>
+    <input type="hidden" name="tid" value="" >
+    </tr>
+    <%}%>
     </tbody>
 </table>

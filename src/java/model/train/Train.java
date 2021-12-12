@@ -5,6 +5,8 @@
  */
 package model.train;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Quang
@@ -13,13 +15,22 @@ public class Train {
 
     private int train_id;
     private String train_name;
-
+    private ArrayList<Seat> seats = new ArrayList<>();
+    
     public Train() {
     }
 
     public Train(int train_id, String train_name) {
         this.train_id = train_id;
         this.train_name = train_name;
+    }
+
+    public ArrayList<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(ArrayList<Seat> seats) {
+        this.seats = seats;
     }
 
     public int getTrain_id() {

@@ -21,7 +21,7 @@ public class TicketDBContext extends DBContext {
 
     public Price getPrice() {
         try {
-            String sql = "SELECT TOP [price_id]\n"
+            String sql = "SELECT [price_id]\n"
                     + "      ,[price]\n"
                     + "  FROM [QuickBooking].[dbo].[Price]";
             Price price = new Price();

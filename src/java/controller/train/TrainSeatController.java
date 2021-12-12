@@ -41,7 +41,7 @@ public class TrainSeatController extends HomeController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TrainSeatController</title>");            
+            out.println("<title>Servlet TrainSeatController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet TrainSeatController at " + request.getContextPath() + "</h1>");
@@ -62,19 +62,22 @@ public class TrainSeatController extends HomeController {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       Boolean isBooking = (Boolean) request.getSession().getAttribute("isBooking");
-       int journeysId = Integer.parseInt(request.getParameter("id"));
-       
+        Boolean isBooking = (Boolean) request.getSession().getAttribute("isBooking");
+        int journeysId = Integer.parseInt(request.getParameter("id"));
+        int trainId = Integer.parseInt(request.getParameter("id"));
+
         TrainDBContext trainDBContext = new TrainDBContext();
-        int [][] seats = trainDBContext.getSeatBooked(journeysId);
-        
+        Train trainSeat = trainDBContext.getTrain(trainId);
+
+        int[][] seats = trainDBContext.getSeatBooked(journeysId);
         TicketDBContext ticketDBContext = new TicketDBContext();
         Price price = ticketDBContext.getPrice();
-        
+
+        request.setAttribute("trainSeat", trainSeat);
         request.setAttribute("seats", seats);
         request.setAttribute("price", price);
-        
-        request.setAttribute("pageInclude", "/view/cinema/rowseat.jsp");
+        LoadHeader(request, response);
+        request.setAttribute("pageInclude", "/view/train/seat.jsp");
         request.getRequestDispatcher("../view/home.jsp").forward(request, response);
     }
 
