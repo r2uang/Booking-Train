@@ -34,22 +34,25 @@
     <form action="seat" method="POST">
         <div class="exit exit--front fuselage">
         </div>
-        <ol class="cabin fuselage">
-            <li class="row row--1">
-                <c:forEach  var="seat" items="${requestScope.trainSeat.seats}">
-                    <c:forEach begin="0" end="${seat.row}" var="i">
-                        <ol class="seats" type="A">
-                            <c:forEach begin="0" end="${requestScope.trainSeat.seats.get(i).seat}" var="j">
-                                <li class="seat" id="seat">
-                                    <input type="checkbox" id="1A"/>
-                                    <label class="${i}" for="${i}" onclick="checkSeat('${i}')">${j}</label>
-                                </li>
-                            </c:forEach>
-                        </ol>
-                    </c:forEach>
-                </c:forEach>
-            </li>
-        </ol>
+
+
+        <c:forEach  var="seat" items="${requestScope.trainSeat.seats}">
+            <c:forEach begin="0" end="${seat.row}" var="i">
+                <ol class="cabin fuselage">
+                    <ol class="seats" type="A">
+                        <c:forEach begin="0" end="${requestScope.trainSeat.seats.get(i).seat}" var="j">
+                            <li class="seat" id="seat">
+                                <input type="checkbox" id="1A"/>
+                                <label class="${i}" for="${i}" onclick="checkSeat('${i}')">${i}</label>
+                            </li>
+                        </c:forEach>
+                    </ol>
+                </ol>
+            </c:forEach>
+
+        </c:forEach>
+
+
         <input type="text" hidden class="input-seats" value="" name="seats">
         <input type="submit" value="Book" onclick="getLabelCheck()">
     </form>
