@@ -57,9 +57,12 @@
             <td>50000</td>
         </tr>
     </table>
-    <form action="${pageContext.request.contentPath}/book/booking" method="POST" class="buttonBook">
+    <form action="${pageContext.request.contextPath}/book/booking" method="POST">
         <input type="text" hidden class="input-seats" value="" name="seats">
-        <input type="submit" value="Book" style="text-align: center;" class="btn btn-primary" onclick="getLabelCheck()">
+        <div class="buttonBook">
+            <input type="submit" value="Book" class="btn btn-primary" onclick="getLabelCheck()">
+        </div>
+
     </form>
 </div>
 
