@@ -22,7 +22,7 @@ public class DBContext {
     public DBContext() {
         try {
             String user = "se1514";
-            String pass = "se1514";
+            String pass = "12345678";
             String url = "jdbc:sqlserver://QUANG-COMPUTER\\SQLEXPRESS:1433;databaseName=QuickBooking";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
