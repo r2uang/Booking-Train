@@ -5,18 +5,24 @@
  */
 package controller.booking;
 
+import controller.home.HomeController;
+import dal.TicketDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.account.Account;
+import model.station.Station;
+import model.train.Journey;
+import model.train.Train;
 
 /**
  *
  * @author Quang
  */
-public class BookingController extends HttpServlet {
+public class BookingController extends HomeController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,18 +36,7 @@ public class BookingController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BookingController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet BookingController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,7 +51,32 @@ public class BookingController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Account account = (Account) request.getSession().getAttribute("account");
+        Boolean isBooking = (Boolean) request.getSession().getAttribute("isBooking");
+
+        if (account == null || isBooking == null) {
+            response.sendRedirect(request.getContextPath() + "/home");
+            return;
+        }
+
+        Journey journey = (Journey) request.getSession().getAttribute("journey");
+        Train train = (Train) request.getSession().getAttribute("train");
+        Station station = (Station) request.getSession().getAttribute("station");
+        
+        String [] seats = request.getParameterValues("seat");
+        String [] prices = request.getParameterValues("price");
+        
+        TicketDBContext ticketDBContext = new TicketDBContext();
+        boolean success = ticketDBContext.insertTicket(journey.getJourneys_id(),train.getTrain_id(),seats,station.getStation_id(),prices,account.getUsername());
+        
+        request.setAttribute("journey", journey);
+        request.setAttribute("train", train);
+        request.setAttribute("station", station);
+        request.setAttribute("seats", seats);
+        request.setAttribute("success", success);
+        LoadHeader(request, response);
+        request.setAttribute("pageInclude","/view/ticket/success.jsp");
+        request.getRequestDispatcher("../view/home.jsp");
     }
 
     /**

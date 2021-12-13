@@ -22,7 +22,7 @@ public class Account {
     private String email;
     private String phonenumber;
     private ArrayList<Feature> features = new ArrayList<>();
-    private ArrayList<Payment> transactions = new ArrayList<>();
+    private ArrayList<Payment> payments = new ArrayList<>();
 
     public Account() {
     }
@@ -101,12 +101,14 @@ public class Account {
         this.features = features;
     }
 
-    public ArrayList<Payment> getTransactions() {
-        return transactions;
+    public ArrayList<Payment> getPayments() {
+        return payments;
     }
 
-    public void setTransactions(ArrayList<Payment> transactions) {
-        this.transactions = transactions;
+    public void setPayments(ArrayList<Payment> payments) {
+        this.payments = payments;
     }
+
+  
 
 }

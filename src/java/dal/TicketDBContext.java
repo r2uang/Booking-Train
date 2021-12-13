@@ -38,4 +38,8 @@ public class TicketDBContext extends DBContext {
         return null;
     }
 
+    public boolean insertTicket(int journeys_id, int train_id, String[] seats, int station_id, String[] prices, String username) {
+       
+    }
+
 }

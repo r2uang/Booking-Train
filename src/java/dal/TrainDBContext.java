@@ -21,14 +21,15 @@ import model.train.Train;
  */
 public class TrainDBContext extends DBContext {
 
-    public int[][] getSeatBooked(int journeysId) {
+    public int[][] getSeatBooked(int journeysId, int trainId) {
         try {
             String sql = "SELECT "
-                    + "      [row_number]\n"
-                    + "      ,[seat_number]\n"
-                    + "  FROM [dbo].[Ticket] WHERE journey_id = ?";
+                    + "[row_number]\n"
+                    + ",[seat_number]\n"
+                    + "  FROM [dbo].[Ticket] WHERE journey_id = ? AND train_id = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, journeysId);
+            stm.setInt(2, trainId);
             ResultSet rs = stm.executeQuery();
             int[][] seats = new int[100][100];
             int i = 0;
@@ -44,20 +45,34 @@ public class TrainDBContext extends DBContext {
 
     public Train getTrain(int trainid) {
         try {
-            String sql = "SELECT t.train_id,s.row_number,s.seat_count\n"
-                    + "FROM [dbo].[Train] t LEFT JOIN Seat s ON s.train_id = t.train_id "
-                    + "WHERE t.train_id = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, trainid);
-            ResultSet rs = stm.executeQuery();
+            String sql_train = "SELECT [train_id]\n"
+                    + ",[train_name]\n"
+                    + "FROM [Train] t  WHERE train_id = ?";
+            
+            String sql_train_seat = "SELECT TOP (1000) [train_id]\n"
+                    + ",[row_number]\n"
+                    + ",[seat_count]\n"
+                    + "FROM [QuickBooking].[dbo].[Seat]"
+                    + "WHERE train_id = ?";
+            
+            PreparedStatement stm = connection.prepareStatement(sql_train);
+            stm.setInt(1,trainid);
+            ResultSet rs_train = stm.executeQuery();
             Train train = new Train();
-            ArrayList<Seat> seats = new ArrayList<>();
-            while (rs.next()) {
-                Seat seat = new Seat();
-                train.setTrain_id(rs.getInt("train_id"));
-                seat.setRow(rs.getInt("row_number"));
-                seat.setSeat(rs.getInt("seat_count"));
-                seats.add(seat);
+            if (rs_train.next()) {
+                train.setTrain_id(rs_train.getInt("train_id"));
+                train.setTrain_name(rs_train.getString("train_name"));
+                //get seat for each train
+                ArrayList<Seat> seats = new ArrayList<>();
+                PreparedStatement stm_train_seat = connection.prepareStatement(sql_train_seat);
+                stm_train_seat.setInt(1, train.getTrain_id());
+                ResultSet rs_train_seat = stm_train_seat.executeQuery();
+                while (rs_train_seat.next()) {
+                    Seat seat = new Seat();
+                    seat.setRow(rs_train_seat.getInt("row_number"));
+                    seat.setSeat(rs_train_seat.getInt("seat_count"));
+                    seats.add(seat);
+                }
                 train.setSeats(seats);
             }
             return train;

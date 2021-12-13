@@ -31,31 +31,37 @@
 
 <div class="plane">
     <h2 style="text-align: center">Đặt vé</h2><br/>
-    <form action="seat" method="POST">
-        <div class="exit exit--front fuselage">
-        </div>
-
-
-        <c:forEach  var="seat" items="${requestScope.trainSeat.seats}">
-            <c:forEach begin="0" end="${seat.row}" var="i">
-                <ol class="cabin fuselage">
-                    <ol class="seats" type="A">
-                        <c:forEach begin="0" end="${requestScope.trainSeat.seats.get(i).seat}" var="j">
-                            <li class="seat" id="seat">
-                                <input type="checkbox" id="1A"/>
-                                <label class="${i}" for="${i}" onclick="checkSeat('${i}')">${i}</label>
-                            </li>
-                        </c:forEach>
-                    </ol>
-                </ol>
-            </c:forEach>
-
-        </c:forEach>
-
-
+    <div class="exit exit--front fuselage">
+    </div>
+    <c:forEach  var="seat" items="${requestScope.train.seats}">
+        <ol class="cabin fuselage">
+            <ol class="seats" type="A">
+                <c:forEach begin="1" end="${seat.seat}" var="i">
+                    <li class="seat" id="seat">
+                        <input type="checkbox" id="${i}" />
+                        <label class="${i}" for="${i}" onclick="checkSeat('${i}')">${i}</label>
+                    </li>
+                </c:forEach>
+            </ol>
+        </ol>
+    </c:forEach>
+    <div class="exit exit--back fuselage">
+    </div>
+    <table>
+        <tr>
+            <td>Ghế: </td>
+            <td>1,2,3</td>
+        </tr>
+        <tr>
+            <td>Tổng: </td>
+            <td>50000</td>
+        </tr>
+    </table>
+    <form action="${pageContext.request.contentPath}/book/booking" method="POST" class="buttonBook">
         <input type="text" hidden class="input-seats" value="" name="seats">
-        <input type="submit" value="Book" onclick="getLabelCheck()">
+        <input type="submit" value="Book" style="text-align: center;" class="btn btn-primary" onclick="getLabelCheck()">
     </form>
+</div>
 
 
 
