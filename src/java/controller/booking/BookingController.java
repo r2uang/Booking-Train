@@ -63,7 +63,7 @@ public class BookingController extends HomeController {
         Train train = (Train) request.getSession().getAttribute("train");
         Station station = (Station) request.getSession().getAttribute("station");
         
-        String [] seats = request.getParameterValues("seat");
+        String [] seats = request.getParameterValues("seats");
         String [] prices = request.getParameterValues("price");
         
         TicketDBContext ticketDBContext = new TicketDBContext();
@@ -76,7 +76,7 @@ public class BookingController extends HomeController {
         request.setAttribute("success", success);
         LoadHeader(request, response);
         request.setAttribute("pageInclude","/view/ticket/success.jsp");
-        request.getRequestDispatcher("../view/home.jsp");
+        request.getRequestDispatcher("../view/home.jsp").forward(request, response);
     }
 
     /**

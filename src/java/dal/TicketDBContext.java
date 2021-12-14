@@ -77,10 +77,11 @@ public class TicketDBContext extends DBContext {
                 PreparedStatement stm_ticket = connection.prepareStatement(sql_ticket);
                 stm_ticket.setInt(1, journeys_id);
                 stm_ticket.setInt(2, train_id);
-                stm_ticket.setInt(3, Integer.parseInt(seats[i]));
-                stm_ticket.setInt(4, station_id);
-                stm_ticket.setInt(5, Integer.parseInt(prices[i]));
-                stm_ticket.setInt(1, payment_id);
+                stm_ticket.setInt(3, seats[i].charAt(0) - 'A' + 1);
+                stm_ticket.setInt(4, Integer.parseInt(seats[i].trim().substring(1)));
+                stm_ticket.setInt(5, station_id);
+                stm_ticket.setInt(6, Integer.parseInt(prices[i]));
+                stm_ticket.setInt(7, payment_id);
                 stm_ticket.executeUpdate();
             }
             connection.commit();

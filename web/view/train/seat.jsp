@@ -17,15 +17,49 @@
         } else {
             label.setAttribute("class", label.getAttribute("class") + " checked");
         }
+        updateSeatBooked(getLabelCheck());
+        updatePriceIdBooked(getLabelCheck());
+        updatePriceBooked(getLabelCheck());
     }
     function getLabelCheck() {
         var labels = document.getElementsByTagName("label");
         var seats = "";
         for (let i = 0; i < labels.length; i++) {
             if (labels[i].className.includes("checked")) {
-                seats = labels[i].className.split(" ")[0] + " ";
+                seats = labels[i].className.split(" ")[0] + " " + seats; 
             }
         }
+        document.getElementsByClassName("input-seats")[0].setAttribute("value", seats);
+        return seats;
+    }
+   
+    function updateSeatBooked(text) {
+        var seatBooked = document.getElementsByClassName("seat-booked")[0];
+        seatBooked.innerHTML = text;
+    }
+    
+    function updatePriceIdBooked(text) {
+        var priceBooked = document.getElementsByClassName("price-booked")[0];
+        var price = "";
+        var labels = document.getElementsByTagName("label");
+        for (let i = 0; i < labels.length; i++) {
+            if (labels[i].className.includes("checked")) {
+                price = labels[i].getAttribute("value").split(" ")[0] + " " + price;
+            }
+        }
+        document.getElementsByClassName("input-price")[0].setAttribute("value", price);
+    }
+    
+    function updatePriceBooked(text) {
+        var priceBooked = document.getElementsByClassName("price-booked")[0];
+        var price = 0;
+        var labels = document.getElementsByTagName("label");
+        for (let i = 0; i < labels.length; i++) {
+            if (labels[i].className.includes("checked")) {
+                price += parseInt(labels[i].getAttribute("value"));
+            }
+        }
+        priceBooked.innerHTML = price;
     }
 </script>
 
@@ -33,33 +67,33 @@
     <h2 style="text-align: center">Đặt vé</h2><br/>
     <div class="exit exit--front fuselage">
     </div>
+    <%char row = 'A';%>
     <c:forEach  var="rowSeat" items="${requestScope.train.seats}">
         <ol class="cabin fuselage">
             <ol class="seats" type="A">
                 <c:forEach begin="1" end="${rowSeat.seat}" var="i">
-                    <c:set var="type" value="seat-standard"></c:set>
-                        <li class="seat" id="seat">
-                        <input  class="${rowSeat.seat}" type="checkbox" id="${rowSeat.row}-${i}"/>
-                        <label for="${rowSeat.row}-${i}" onclick="checkSeat('${i}')">${i}</label>
+                    <li class="seat">
+                        <input type="checkbox" id="${i}<%=row%>" />
+                        <label class="${i}<%=row%>" for="${i}<%=row%>" value="${requestScope.price.price_id}"  onclick="checkSeat('${i}<%=row%>')"><%=row%>${i}</label>
                     </li>
                 </c:forEach>
             </ol>
         </ol>
+        <%row++;%>
     </c:forEach>
     <div class="exit exit--back fuselage">
     </div>
     <table>
         <tr>
-            <td>Ghế: </td>
-            <td>1,2,3</td>
+            <td>Ghế: <p class="seat-booked"></p></td>
         </tr>
         <tr>
-            <td>Tổng: </td>
-            <td>50000</td>
+            <td>Tổng: <p class="price-booked"></p></td>
         </tr>
     </table>
     <form action="${pageContext.request.contextPath}/book/booking" method="POST">
-        <input type="text" hidden class="input-seats" value="" name="seats">
+        <input type="hidden" class="input-seats" value="" name="seats">
+        <input type="hidden" class="input-price" value="" name="price">
         <div class="buttonBook">
             <input type="submit" value="Book" class="btn btn-primary" onclick="getLabelCheck()">
         </div>
