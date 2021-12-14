@@ -33,13 +33,14 @@
     <h2 style="text-align: center">Đặt vé</h2><br/>
     <div class="exit exit--front fuselage">
     </div>
-    <c:forEach  var="seat" items="${requestScope.train.seats}">
+    <c:forEach  var="rowSeat" items="${requestScope.train.seats}">
         <ol class="cabin fuselage">
             <ol class="seats" type="A">
-                <c:forEach begin="1" end="${seat.seat}" var="i">
-                    <li class="seat" id="seat">
-                        <input type="checkbox" id="${i}" />
-                        <label class="${i}" for="${i}" onclick="checkSeat('${i}')">${i}</label>
+                <c:forEach begin="1" end="${rowSeat.seat}" var="i">
+                    <c:set var="type" value="seat-standard"></c:set>
+                        <li class="seat" id="seat">
+                        <input  class="${rowSeat.seat}" type="checkbox" id="${rowSeat.row}-${i}"/>
+                        <label for="${rowSeat.row}-${i}" onclick="checkSeat('${i}')">${i}</label>
                     </li>
                 </c:forEach>
             </ol>
