@@ -85,10 +85,10 @@
     </div>
     <table>
         <tr>
-            <td>Ghế: <p class="seat-booked"></p></td>
+            <td>Ghế <p class="seat-booked"></p></td>
         </tr>
         <tr>
-            <td>Tổng: <p class="price-booked"></p></td>
+            <td>Tổng <p class="price-booked"></p></td>
         </tr>
     </table>
     <form action="${pageContext.request.contextPath}/book/booking" method="POST">
